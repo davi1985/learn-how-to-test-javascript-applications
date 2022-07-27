@@ -1,7 +1,7 @@
 import Dinero from 'dinero.js';
 import { find, remove } from 'lodash';
 
-import { calculateDiscount } from './utils';
+import { calculateDiscount } from './discount.utils';
 
 const Money = Dinero;
 
