@@ -1,0 +1,42 @@
+{
+  "name": "curso-javascript-testes-modulo-3",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "test": "jest --maxWorkers=50%",
+    "test:unit": "jest --config=jest-unit.config.js --maxWorkers=50%",
+    "test:unit:watch": "jest --watchAll --config=jest-unit.config.js --maxWorkers=50%",
+    "test:integration": "jest --config=jest-integration.config.js --maxWorkers=50%",
+    "test:integration:watch": "jest --watchAll --config=jest-integration.config.js --maxWorkers=50%",
+    "test:watch": "jest --watchAll --maxWorkers=50%",
+    "test:coverage": "jest --coverage --maxWorkers=50%",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "@tailwindcss/ui": "0.7.2",
+    "axios": "^0.24.0",
+    "immer": "9.0.6",
+    "next": "11.1.2",
+    "postcss": "8",
+    "react": "17.0.2",
+    "react-dom": "17.0.2",
+    "tailwindcss": "2.2.16",
+    "zustand": "3.5.12"
+  },
+  "devDependencies": {
+    "@testing-library/dom": "^8.11.1",
+    "@testing-library/jest-dom": "^5.16.1",
+    "@testing-library/react": "^12.1.2",
+    "@testing-library/user-event": "^13.5.0",
+    "babel-jest": "^27.4.5",
+    "faker": "^5.5.3",
+    "jest": "^27.4.5",
+    "jest-dom": "^4.0.0",
+    "miragejs": "^0.1.43",
+    "postcss-flexbugs-fixes": "5.0.2",
+    "postcss-preset-env": "^6.7.0",
+    "react-test-renderer": "17.0.2"
+  }
+}
