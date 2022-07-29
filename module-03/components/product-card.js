@@ -1,4 +1,4 @@
-export default function ProductCard() {
+export default function ProductCard({ product, addToCart }) {
   return (
     <section data-testid="product-card">
       <div className="w-full max-w-sm mx-auto rounded-md shadow-md overflow-hidden">
@@ -6,7 +6,7 @@ export default function ProductCard() {
           data-testid="image"
           className="flex items-end wjustify-end h-56 w-full bg-cover"
           style={{
-            backgroundImage: `url(https://images.unsplash.com/photo-1549675584-c22bde15df72?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=872&q=80)`,
+            backgroundImage: `url(${product.url})`,
           }}
         >
           <button
@@ -27,8 +27,8 @@ export default function ProductCard() {
           </button>
         </div>
         <div className="px-5 py-3">
-          <h3 className="text-gray-700 uppercase">Any-Title</h3>
-          <span className="text-gray-500 mt-2">$299</span>
+          <h3 className="text-gray-700 uppercase">{product.title}</h3>
+          <span className="text-gray-500 mt-2">${product.price}</span>
         </div>
       </div>
     </section>
