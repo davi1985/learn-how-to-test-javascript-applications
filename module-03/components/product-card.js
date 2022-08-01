@@ -6,7 +6,7 @@ export default function ProductCard({ product, addToCart }) {
           data-testid="image"
           className="flex items-end wjustify-end h-56 w-full bg-cover"
           style={{
-            backgroundImage: `url(${product.url})`,
+            backgroundImage: `url(${product.image})`,
           }}
         >
           <button

@@ -3,25 +3,26 @@ import { useState } from 'react';
 export default function CartItem({ product }) {
   const [quantity, setQuantity] = useState(1);
 
-  const handleIncrease = () => setQuantity(quantity + 1);
-  const handleDecrease = () => setQuantity(quantity > 0 ? quantity - 1 : 0);
+  const increase = () => setQuantity(quantity + 1);
+
+  const decrease = () => {
+    setQuantity(quantity > 0 ? quantity - 1 : 0);
+  };
 
   return (
-    <div className="flex justify-between mt-6" data-testid="cart-item">
+    <div data-testid="cart-item" className="flex justify-between mt-6">
       <div className="flex">
         <img
           data-testid="image"
           className="h-20 w-20 object-cover rounded"
-          src={product.url}
+          src={product.image}
           alt={product.title}
         />
-
         <div className="mx-3">
           <h3 className="text-sm text-gray-600">{product.title}</h3>
-
           <div className="flex items-center mt-2">
             <button
-              onClick={handleDecrease}
+              onClick={() => decrease()}
               className="text-gray-500 focus:outline-none focus:text-gray-600"
             >
               <svg
@@ -42,7 +43,7 @@ export default function CartItem({ product }) {
             </span>
 
             <button
-              onClick={handleIncrease}
+              onClick={() => increase()}
               className="text-gray-500 focus:outline-none focus:text-gray-600"
             >
               <svg
@@ -60,7 +61,6 @@ export default function CartItem({ product }) {
           </div>
         </div>
       </div>
-
       <span className="text-gray-600">${product.price}</span>
     </div>
   );
