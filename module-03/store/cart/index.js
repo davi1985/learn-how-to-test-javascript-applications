@@ -4,6 +4,7 @@ import produce from 'immer';
 const initialState = {
   open: false,
   products: [],
+  total: 0,
 };
 
 export const useCartStore = create((set) => {
@@ -40,6 +41,7 @@ export const useCartStore = create((set) => {
               product.quantity = 1;
             }
 
+            state.total += parseFloat(product.price);
             state.products.push(product);
             state.open = true;
           }
@@ -54,6 +56,7 @@ export const useCartStore = create((set) => {
 
           if (localProduct) {
             localProduct.quantity++;
+            state.total += parseFloat(localProduct.price);
           }
         });
       },
@@ -66,6 +69,7 @@ export const useCartStore = create((set) => {
 
           if (localProduct && localProduct.quantity > 0) {
             localProduct.quantity--;
+            state.total -= parseFloat(localProduct.price);
           }
         });
       },
@@ -85,6 +89,7 @@ export const useCartStore = create((set) => {
       removeAll() {
         setState(({ state }) => {
           state.products = [];
+          state.total = 0;
         });
       },
     },

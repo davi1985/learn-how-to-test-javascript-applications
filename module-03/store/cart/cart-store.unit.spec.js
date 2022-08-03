@@ -11,6 +11,7 @@ describe('Cart Store', () => {
   let removeAll;
   let increase;
   let decrease;
+  let totalCart;
 
   beforeEach(() => {
     server = makeServer({ environment: 'test' });
@@ -21,6 +22,7 @@ describe('Cart Store', () => {
     removeAll = result.current.actions.removeAll;
     increase = result.current.actions.increase;
     decrease = result.current.actions.decrease;
+    totalCart = result.current.actions.totalCart;
   });
 
   afterEach(() => {
@@ -164,7 +166,25 @@ describe('Cart Store', () => {
     });
 
     expect(result.current.state.products).toHaveLength(0);
+    expect(result.current.state.total).toBe(0);
   });
 
-  it('should ', async () => {});
+  it('should inital total cart equals zero', async () => {
+    expect(result.current.state.total).toBe(0);
+  });
+
+  it('should return total value when totalCart() is called', async () => {
+    const products = server.createList('product', 2);
+
+    let total = result.current.state.total;
+
+    act(() => {
+      for (const product of products) {
+        add(product);
+      }
+    });
+
+    total = result.current.state.total;
+    expect(total > 0).toBeTruthy();
+  });
 });

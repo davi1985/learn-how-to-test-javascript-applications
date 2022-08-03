@@ -1,9 +1,10 @@
 import { useCartStore } from '../store/cart';
+import { formatPrice } from '../utils/utils';
 
 import CartItem from './cart-item';
 
 export default function Cart() {
-  const { open, products } = useCartStore((store) => store.state);
+  const { open, products, total } = useCartStore((store) => store.state);
   const { toggle, removeAll } = useCartStore((store) => store.actions);
 
   const hasPorducts = products.length > 0;
@@ -39,6 +40,9 @@ export default function Cart() {
           </svg>
         </button>
       </div>
+
+      {hasPorducts ? <p>Total: {formatPrice(total)}</p> : null}
+
       <hr className="my-3" />
       {!hasPorducts ? (
         <h3 className="text-center font-bold text-blue-600">
