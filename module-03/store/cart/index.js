@@ -1,35 +1,92 @@
 import create from 'zustand';
+import produce from 'immer';
 
 const initialState = {
   open: false,
   products: [],
 };
 
-const addProduct = (store, product) => {
-  if (store.state.products.includes(product)) {
-    return store.state.products;
-  }
+export const useCartStore = create((set) => {
+  const setState = (fn) => set(produce(fn));
 
-  return [...store.state.products, product];
-};
+  return {
+    state: {
+      ...initialState,
+    },
 
-export const useCartStore = create((set) => ({
-  state: {
-    ...initialState,
-  },
-  actions: {
-    toggle: () =>
-      set((store) => ({
-        state: { ...store.state, open: !store.state.open },
-      })),
+    actions: {
+      toggle() {
+        setState(
+          produce(({ state }) => {
+            state.open = !state.open;
+          }),
+        );
+      },
 
-    reset: () => set((store) => ({ state: { ...initialState } })),
+      reset() {
+        setState((store) => {
+          store.state = initialState;
+        });
+      },
 
-    add: (product) =>
-      set((store) => {
-        return {
-          state: { open: true, products: addProduct(store, product) },
-        };
-      }),
-  },
-}));
+      add(product) {
+        setState(({ state }) => {
+          const doesnExist = !state.products.find(
+            ({ id }) => id === product.id,
+          );
+
+          if (doesnExist) {
+            if (!product.quantity) {
+              product.quantity = 1;
+            }
+
+            state.products.push(product);
+            state.open = true;
+          }
+        });
+      },
+
+      increase(product) {
+        setState(({ state }) => {
+          const localProduct = state.products.find(
+            ({ id }) => id === product.id,
+          );
+
+          if (localProduct) {
+            localProduct.quantity++;
+          }
+        });
+      },
+
+      decrease(product) {
+        setState(({ state }) => {
+          const localProduct = state.products.find(
+            ({ id }) => id === product.id,
+          );
+
+          if (localProduct && localProduct.quantity > 0) {
+            localProduct.quantity--;
+          }
+        });
+      },
+
+      remove(product) {
+        setState(({ state }) => {
+          const exist = !!state.products.find(({ id }) => id === product.id);
+
+          if (exist) {
+            state.products = state.products.filter(
+              ({ id }) => id !== product.id,
+            );
+          }
+        });
+      },
+
+      removeAll() {
+        setState(({ state }) => {
+          state.products = [];
+        });
+      },
+    },
+  };
+});

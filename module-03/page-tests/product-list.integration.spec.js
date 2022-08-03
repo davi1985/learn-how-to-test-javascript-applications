@@ -27,9 +27,9 @@ describe('Home', () => {
     server.createList('product', 10);
     renderPage();
 
-    await waitFor(() =>
-      expect(screen.getAllByTestId('product-card')).toHaveLength(10),
-    );
+    await waitFor(() => {
+      expect(screen.getAllByTestId('product-card')).toHaveLength(10);
+    });
   });
 
   it('should render the "no products message"', async () => {
